@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>КОсмос сервис - ремонт телефонов и цифровые услуги</title>
+    <meta
+      name="description"
+      content="КОсмос сервис: ремонт телефонов, подбор техники, ПО, перенос данных и корпоративное обслуживание."
+    >
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Главная навигация">
+      <a class="brand" href="#top" aria-label="КОсмос сервис">
+        <span class="brand-mark" aria-hidden="true">K</span>
+        <span>
+          <strong>КОсмос</strong>
+          <small>сервис техники</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="#services">Услуги</a>
+        <a href="#request">Заявка</a>
+        <a href="#preorder">Предзаказ</a>
+        <a href="#legal">Юридически</a>
+      </nav>
+      <a class="header-action" href="https://yandex.ru/maps/org/kosmos/93478916423/?ll=34.098740%2C44.948855&z=15" target="_blank" rel="noreferrer">На карте</a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img class="hero-image" src="./assets/hero-repair.png" alt="Рабочее место мастера по ремонту смартфона">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">ремонт телефонов, техника, ПО</p>
+          <h1 id="hero-title">Сервис, который отвечает быстро и ремонтирует прозрачно</h1>
+          <p class="hero-lead">
+            КОсмос помогает с ремонтом смартфонов, подбором техники, переносом данных и цифровыми задачами.
+            Без тумана: сначала диагностика и согласование, потом работа.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#request">Оставить заявку</a>
+            <a class="button button-secondary" href="#preorder">Предзаказ техники</a>
+          </div>
+          <dl class="hero-facts" aria-label="Ключевые принципы">
+            <div>
+              <dt>Ответ</dt>
+              <dd>быстро</dd>
+            </div>
+            <div>
+              <dt>Ремонт</dt>
+              <dd>после согласования</dd>
+            </div>
+            <div>
+              <dt>Цены</dt>
+              <dd>без сюрпризов</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="quick-panel" id="request" aria-labelledby="request-title">
+        <div class="section-heading">
+          <p class="eyebrow">быстрый старт</p>
+          <h2 id="request-title">Сформировать заявку</h2>
+          <p>
+            Пока сайт работает без backend: он собирает данные в готовый текст.
+            Следующим шагом подключим Telegram и CRM.
+          </p>
+        </div>
+
+        <div class="request-layout">
+          <form class="request-form" id="lead-form">
+            <fieldset class="segments" aria-label="Тип заявки">
+              <label>
+                <input type="radio" name="mode" value="repair" checked>
+                <span>Ремонт</span>
+              </label>
+              <label>
+                <input type="radio" name="mode" value="preorder">
+                <span>Предзаказ</span>
+              </label>
+              <label>
+                <input type="radio" name="mode" value="business">
+                <span>Для бизнеса</span>
+              </label>
+            </fieldset>
+
+            <div class="form-grid">
+              <label>
+                Имя
+                <input name="name" autocomplete="name" placeholder="Например, Алексей">
+              </label>
+              <label>
+                Контакт
+                <input name="contact" autocomplete="tel" placeholder="Телефон или Telegram">
+              </label>
+              <label>
+                Устройство
+                <input name="device" placeholder="iPhone 12, Redmi Note, ноутбук">
+              </label>
+              <label>
+                Срочность
+                <select name="urgency">
+                  <option>Сегодня</option>
+                  <option>В ближайшие 2-3 дня</option>
+                  <option>Не срочно</option>
+                  <option>Нужна консультация</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Что нужно сделать
+              <textarea name="details" rows="5" placeholder="Опишите поломку, желаемую технику или задачу."></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Собрать текст заявки</button>
+              <button class="button button-ghost" type="button" id="copy-request">Скопировать</button>
+            </div>
+            <p class="form-note">
+              Данные никуда не отправляются, пока мы не подключили канал связи.
+            </p>
+          </form>
+
+          <aside class="request-output" aria-live="polite">
+            <h3>Готовый текст</h3>
+            <pre id="lead-output">Выберите сценарий и заполните поля - здесь появится заявка.</pre>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="services" aria-labelledby="services-title">
+        <div class="section-heading">
+          <p class="eyebrow">что продаём и развиваем</p>
+          <h2 id="services-title">Не только ремонт</h2>
+          <p>Сайт строится как фундамент будущей клиентской базы: ремонт, техника, ПО, корпоративные задачи.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <h3>Ремонт смартфонов</h3>
+            <p>Диагностика, замена экранов, аккумуляторов, разъёмов, восстановление после влаги и падений.</p>
+          </article>
+          <article class="service-card">
+            <h3>ПО и данные</h3>
+            <p>Перенос данных, настройка аккаунтов, восстановление доступа, базовая цифровая помощь.</p>
+          </article>
+          <article class="service-card">
+            <h3>Б/у и новая техника</h3>
+            <p>Подбор, предзаказ, проверка состояния, продажа после юридической и документальной проверки.</p>
+          </article>
+          <article class="service-card">
+            <h3>Корпоративным клиентам</h3>
+            <p>Регулярное обслуживание техники, учёт заявок, быстрые каналы связи и прозрачные отчёты.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section process-section" aria-labelledby="process-title">
+        <div class="section-heading">
+          <p class="eyebrow">без сюрпризов</p>
+          <h2 id="process-title">Как должен идти ремонт</h2>
+        </div>
+        <ol class="process-list">
+          <li>
+            <span>1</span>
+            <strong>Заявка</strong>
+            <p>Клиент описывает устройство, проблему и удобный способ связи.</p>
+          </li>
+          <li>
+            <span>2</span>
+            <strong>Диагностика</strong>
+            <p>Сервис уточняет причину, сроки, детали и диапазон цены.</p>
+          </li>
+          <li>
+            <span>3</span>
+            <strong>Согласование</strong>
+            <p>Работа начинается только после понятного согласия клиента.</p>
+          </li>
+          <li>
+            <span>4</span>
+            <strong>Выдача</strong>
+            <p>Клиент получает результат, рекомендации и условия гарантии.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section split-section" id="preorder" aria-labelledby="preorder-title">
+        <div>
+          <p class="eyebrow">новое направление</p>
+          <h2 id="preorder-title">Предзаказ техники без хаоса</h2>
+          <p>
+            На первом этапе предзаказ - это заявка на подбор. Мы не обещаем финальную цену и наличие,
+            пока не проверены поставщик, документы, условия гарантии и применимость налогового режима.
+          </p>
+        </div>
+        <div class="preorder-box">
+          <h3>Сценарий заявки</h3>
+          <ul>
+            <li>Клиент указывает модель, бюджет и сроки.</li>
+            <li>Сервис проверяет варианты и юридические ограничения.</li>
+            <li>Финальные условия подтверждаются вручную.</li>
+            <li>Спорные вопросы уходят бухгалтеру.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section legal-section" id="legal" aria-labelledby="legal-title">
+        <div class="section-heading">
+          <p class="eyebrow">работаем красиво по закону</p>
+          <h2 id="legal-title">Юридические ограничения - часть продукта</h2>
+          <p>
+            Этот блок не заменяет бухгалтера или юриста. Он фиксирует правила сайта,
+            чтобы мы не строили продажи на опасных обещаниях.
+          </p>
+        </div>
+        <div class="legal-grid">
+          <article>
+            <h3>Цены</h3>
+            <p>Показываем ориентиры, но финальную цену ремонта подтверждаем после диагностики.</p>
+          </article>
+          <article>
+            <h3>Предзаказ</h3>
+            <p>До проверки документов это заявка на подбор, а не автоматическая покупка.</p>
+          </article>
+          <article>
+            <h3>ИП, патент, УСН</h3>
+            <p>Новые направления сверяем с бухгалтером: что можно по патенту, что вести по УСН.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-band" aria-labelledby="contacts-title">
+        <div>
+          <p class="eyebrow">каналы связи</p>
+          <h2 id="contacts-title">Соберём коммуникации в один узел</h2>
+          <p>Телефон, Telegram, WhatsApp, Яндекс.Карты, бот и CRM подключим поверх этого сайта.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button button-secondary" href="https://yandex.ru/maps/org/kosmos/93478916423/?ll=34.098740%2C44.948855&z=15" target="_blank" rel="noreferrer">Открыть Яндекс.Карты</a>
+          <a class="button button-ghost" href="#request">Сформировать заявку</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>КОсмос сервис. Сайт-MVP для развития клиентской базы и цифровой среды сервиса.</p>
+      <p>Юридические тексты и реквизиты добавляются после проверки владельцем и бухгалтером.</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
