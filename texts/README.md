@@ -20,6 +20,7 @@
 - `texts/SITE_STRATEGY.md` — философия и стратегия сайта.
 - `texts/CRM_AGENT_STRATEGY.md` — стратегия персонального ИИ-агента и CRM.
 - `texts/DOCUMENTS_FINANCE_HUB.md` — склад документов, платежей, расходов, напоминаний и вопросов бухгалтеру.
+- `texts/FNS_EXPORT_CHECKLIST.md` — чеклист выгрузки документов из ЛК ФНС для цифрового сейфа.
 - `projects/site/` — личный сайт сервиса.
 - `projects/tg-bot/` — бот для приёма заявок.
 - `projects/crm/` — CRM или внутренняя админка, если понадобится.
