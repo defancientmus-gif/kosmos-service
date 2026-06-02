@@ -45,6 +45,22 @@
 5. Агент складывает файлы в `_inbox/fns/`.
 6. Агент создаёт отчёт: что скачано, что не найдено, что требует ручного действия.
 
+## Текущие helper-скрипты
+
+- `scripts/watch-downloads.sh` — временный приёмщик файлов: копирует новые завершённые загрузки из `~/Downloads` в `_inbox/fns/`, не удаляя оригиналы.
+
+Запуск:
+
+```sh
+projects/ops-agent/scripts/watch-downloads.sh
+```
+
+Можно передать свои папки:
+
+```sh
+projects/ops-agent/scripts/watch-downloads.sh ~/Downloads ../../_inbox/fns
+```
+
 ## Конфиги
 
 - `config.example.json` — пример безопасной настройки.
