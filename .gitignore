@@ -3,9 +3,13 @@
 .env.*
 
 _inbox/
+_archive/
 downloads/
 private/
 secrets/
+data/live/
+projects/ops-agent/config/*.local.json
+projects/ops-agent/downloads/
 
 *.key
 *.pem
@@ -14,5 +18,7 @@ secrets/
 *.cer
 *.crt
 *.sig
+*.p7s
+*.p7m
 *.zip
 *.7z

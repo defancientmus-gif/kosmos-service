@@ -1,0 +1,27 @@
+{
+  "mode": "download-only",
+  "downloadsDir": "../../_inbox",
+  "archiveDir": "../../_archive",
+  "liveDataDir": "../../data/live",
+  "modules": {
+    "fns": {
+      "enabled": true,
+      "startUrl": "https://lkip.nalog.ru/",
+      "allowedActions": [
+        "download_egrip",
+        "download_ens_operations",
+        "download_patent_documents",
+        "download_tax_regime_documents",
+        "download_insurance_contributions",
+        "download_kkt_documents"
+      ],
+      "forbiddenActions": [
+        "sign_with_ep",
+        "submit_statement",
+        "create_payment",
+        "change_tax_regime",
+        "send_tax_secret_consent"
+      ]
+    }
+  }
+}
