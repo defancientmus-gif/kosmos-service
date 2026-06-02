@@ -92,7 +92,7 @@ API, провайдеры и интеграции:
 | TG боты | Python + aiogram / node + telegraf |
 | БД | Supabase / SQLite для простого |
 | Хостинг | Railway / Render / VPS |
-| CRM заявки | [что используешь] |
+| CRM заявки | LiveSklad |
 | Уведомления | Telegram |
 
 ---
