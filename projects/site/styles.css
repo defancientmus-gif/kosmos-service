@@ -310,7 +310,6 @@ h3 {
 .hero-glass,
 .request-form,
 .photo-card,
-.brand-card,
 .system-grid article,
 .app-visual,
 .legal-strip {
@@ -332,8 +331,7 @@ h3 {
 }
 
 .hero-glass span,
-.photo-card figcaption,
-.brand-card figcaption {
+.photo-card figcaption {
   display: block;
   color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
@@ -464,13 +462,12 @@ h3 {
 
 .photo-board {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
-  grid-template-rows: 320px 320px;
+  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-rows: 520px;
   gap: 16px;
 }
 
-.photo-card,
-.brand-card {
+.photo-card {
   position: relative;
   overflow: hidden;
   margin: 0;
@@ -478,31 +475,24 @@ h3 {
 }
 
 .photo-card-large {
-  grid-row: span 2;
+  grid-row: auto;
 }
 
-.photo-card img,
-.brand-card img {
+.photo-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: saturate(0.88) contrast(1.04);
 }
 
-.brand-card img {
-  object-position: top;
-}
-
-.photo-card::after,
-.brand-card::after {
+.photo-card::after {
   position: absolute;
   inset: 0;
   content: "";
   background: linear-gradient(180deg, transparent 50%, rgba(8, 56, 61, 0.68));
 }
 
-.photo-card figcaption,
-.brand-card figcaption {
+.photo-card figcaption {
   position: absolute;
   right: 18px;
   bottom: 16px;
@@ -725,8 +715,7 @@ h3 {
     grid-template-rows: auto;
   }
 
-  .photo-card,
-  .brand-card {
+  .photo-card {
     height: 420px;
     min-height: 0;
   }
