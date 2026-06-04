@@ -1,0 +1,14 @@
+id,section,document_name,priority,status,where_to_put,source,notes
+1,owner,Owner card,p0,todo,Документы Космос/11_Владелец_ИП/06_Шаблоны_данных/карточка_владельца.md,manual,Fill locally without committing
+2,owner,Passport and registration,p0,todo,Документы Космос/11_Владелец_ИП/01_Паспорт,manual,Keep scans only locally
+3,business,Business identity card,p0,todo,Документы Космос/11_Владелец_ИП/06_Шаблоны_данных/карточка_ип.md,manual,Fill locally without committing
+4,business,EGRIP extract,p0,todo,Документы Космос/11_Владелец_ИП/02_ИП_регистрация,fns,Download from FNS
+5,business,INN and OGRNIP,p0,todo,Документы Космос/11_Владелец_ИП/02_ИП_регистрация,fns,Store source document locally
+6,taxes,PSN patent,p0,todo,Документы Космос/11_Владелец_ИП/03_Налоговые_режимы,fns,Current patent and payment schedule
+7,taxes,USN documents,p1,todo,Документы Космос/11_Владелец_ИП/03_Налоговые_режимы,fns,Confirm with accountant
+8,taxes,ENS balance and operations,p1,todo,Документы Космос/11_Владелец_ИП/03_Налоговые_режимы,fns,Needs periodic refresh
+9,bank,Bank requisites card,p0,todo,Документы Космос/11_Владелец_ИП/04_Банк_и_реквизиты,bank,Use for payment templates
+10,rent,Rent agreement,p0,todo,Документы Космос/05_Аренда,manual,Needed for rent payment flow
+11,cashdesk,KKT and OFD documents,p1,todo,Документы Космос/06_ККТ_ОФД,manual,Needed for compliance reminders
+12,crm,LiveSklad access description,p1,todo,Документы Космос/11_Владелец_ИП/05_Контакты_и_доступы_описание,livesklad,No passwords or API tokens
+13,accounting,Accountant contact and questions,p0,todo,Документы Космос/03_Бухгалтерия/Вопросы,manual,Keep tax decisions with accountant

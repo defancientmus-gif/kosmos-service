@@ -25,3 +25,6 @@
 - `accountant_questions.csv` — вопросы бухгалтеру.
 - `action_log.csv` — журнал действий агента.
 - `download_tasks.csv` — задачи на выгрузку из ФНС, банка, LiveSklad и поставщиков.
+- `owner_profile.csv` — шаблон локального профиля владельца без реальных данных.
+- `business_identity.csv` — шаблон локальной карточки ИП/бизнеса без реальных данных.
+- `vault_collection_checklist.csv` — чеклист сбора базового пакета документов.
