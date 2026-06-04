@@ -2,14 +2,15 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
-SOURCE_DIR="${1:-$HOME/Downloads}"
+SOURCE_DIR="${1:-$ROOT_DIR/Загрузки Космос/ФНС}"
 TARGET_DIR="${2:-$ROOT_DIR/_inbox/fns}"
 STAMP_FILE="${3:-/private/tmp/kosmos-fns-watch-start}"
 
-mkdir -p "$TARGET_DIR"
+mkdir -p "$SOURCE_DIR" "$TARGET_DIR"
 touch "$STAMP_FILE"
 
 echo "Watching: $SOURCE_DIR"
+echo "Default source is repo-local, not ~/Downloads."
 echo "Copying new files to: $TARGET_DIR"
 echo "Started at: $(date '+%Y-%m-%d %H:%M:%S')"
 

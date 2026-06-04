@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Космос Сервис — доска документов</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f3ee;
+        --panel: #ffffff;
+        --panel-soft: #fbfaf7;
+        --ink: #20242a;
+        --muted: #6d737d;
+        --line: #ded8ce;
+        --teal: #0d8b84;
+        --teal-soft: #d8efed;
+        --amber: #b36d00;
+        --amber-soft: #ffe8bd;
+        --rose: #b5484d;
+        --rose-soft: #f8d8da;
+        --green: #2f7d46;
+        --green-soft: #dff0e4;
+        --shadow: 0 18px 40px rgba(51, 43, 31, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        border: 0;
+      }
+
+      .app {
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr) 320px;
+        min-height: 100vh;
+      }
+
+      .rail {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+        border-right: 1px solid var(--line);
+        background: #eee7dc;
+      }
+
+      .brand {
+        display: grid;
+        gap: 6px;
+      }
+
+      .brand__label {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .brand__title {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.1;
+      }
+
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .metric {
+        display: grid;
+        gap: 6px;
+        min-height: 76px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .metric strong {
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .nav {
+        display: grid;
+        gap: 6px;
+      }
+
+      .nav button {
+        display: grid;
+        grid-template-columns: 24px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--ink);
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .nav button:hover,
+      .nav button.is-active {
+        background: var(--panel);
+      }
+
+      .nav .count {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .rail-actions {
+        display: grid;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      .icon-btn,
+      .text-btn,
+      .status-btn {
+        display: inline-grid;
+        place-items: center;
+        min-height: 36px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .text-btn {
+        width: 100%;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--ink);
+      }
+
+      .text-btn:hover {
+        border-color: #bfb5a8;
+      }
+
+      .main {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(246, 243, 238, 0.9);
+        backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        z-index: 3;
+      }
+
+      .search {
+        min-width: 0;
+        height: 40px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        outline: 0;
+        background: var(--panel);
+        color: var(--ink);
+      }
+
+      .search:focus {
+        border-color: var(--teal);
+        box-shadow: 0 0 0 3px var(--teal-soft);
+      }
+
+      .segmented {
+        display: inline-grid;
+        grid-template-columns: repeat(4, minmax(76px, auto));
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .segmented button {
+        min-height: 30px;
+        padding: 0 10px;
+        border-radius: 6px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+
+      .segmented button.is-active {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .board {
+        display: grid;
+        gap: 12px;
+        padding: 24px;
+      }
+
+      .item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: start;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+      }
+
+      .item.is-selected {
+        border-color: var(--teal);
+        box-shadow: var(--shadow);
+      }
+
+      .item__main {
+        display: grid;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .item__top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .item h2 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.25;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 0 8px;
+        border-radius: 999px;
+        background: #efeae1;
+        color: var(--muted);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .chip--p0 {
+        background: var(--rose-soft);
+        color: var(--rose);
+      }
+
+      .chip--p1 {
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+
+      .path {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .path code {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .item__actions {
+        display: grid;
+        grid-template-columns: repeat(3, 36px);
+        gap: 6px;
+      }
+
+      .status-btn {
+        width: 36px;
+        border: 1px solid var(--line);
+        background: var(--panel-soft);
+        color: var(--muted);
+      }
+
+      .status-btn:hover {
+        border-color: #bfb5a8;
+      }
+
+      .status-btn.is-active[data-status="todo"] {
+        border-color: var(--rose);
+        background: var(--rose-soft);
+        color: var(--rose);
+      }
+
+      .status-btn.is-active[data-status="review"] {
+        border-color: var(--amber);
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+
+      .status-btn.is-active[data-status="done"] {
+        border-color: var(--green);
+        background: var(--green-soft);
+        color: var(--green);
+      }
+
+      .side {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px;
+        border-left: 1px solid var(--line);
+        background: var(--panel-soft);
+      }
+
+      .panel {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .panel h2,
+      .panel h3 {
+        margin: 0;
+      }
+
+      .panel h2 {
+        font-size: 18px;
+      }
+
+      .panel h3 {
+        font-size: 14px;
+      }
+
+      .detail-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .detail-row {
+        display: grid;
+        gap: 3px;
+        min-width: 0;
+      }
+
+      .detail-row span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .detail-row strong,
+      .detail-row code {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .quick-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .quick-link {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+        min-height: 38px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .quick-link:hover {
+        border-color: var(--teal);
+      }
+
+      .toast {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        max-width: 320px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        box-shadow: var(--shadow);
+        transform: translateY(20px);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 160ms ease,
+          transform 160ms ease;
+      }
+
+      .toast.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .empty {
+        padding: 36px;
+        border: 1px dashed var(--line);
+        border-radius: 8px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 1120px) {
+        .app {
+          grid-template-columns: 240px minmax(0, 1fr);
+        }
+
+        .side {
+          grid-column: 1 / -1;
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+      }
+
+      @media (max-width: 760px) {
+        html,
+        body {
+          width: 100%;
+          overflow-x: hidden;
+        }
+
+        .app {
+          display: block;
+          width: 100%;
+          max-width: 100vw;
+          overflow-x: hidden;
+        }
+
+        .rail,
+        .main,
+        .side {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          border: 0;
+        }
+
+        .rail,
+        .toolbar,
+        .board,
+        .side {
+          width: 100%;
+          max-width: 100%;
+          padding-right: 16px;
+          padding-left: 16px;
+        }
+
+        .status-grid,
+        .nav,
+        .rail-actions,
+        .toolbar,
+        .board,
+        .side {
+          width: min(100%, 390px);
+          max-width: calc(100vw - 32px);
+          margin-right: auto;
+          margin-left: auto;
+        }
+
+        .status-grid,
+        .nav,
+        .rail-actions {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+        }
+
+        .toolbar {
+          grid-template-columns: 1fr;
+          position: static;
+        }
+
+        .search,
+        .segmented,
+        .metric,
+        .item,
+        .panel,
+        .quick-link {
+          min-width: 0;
+        }
+
+        .segmented {
+          grid-template-columns: 1fr;
+          width: 100%;
+        }
+
+        .segmented button {
+          min-width: 0;
+        }
+
+        .item {
+          grid-template-columns: 1fr;
+        }
+
+        .item__actions {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .status-btn {
+          width: 100%;
+        }
+      }
+
+        .status-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="rail">
+        <div class="brand">
+          <span class="brand__label">Космос Сервис</span>
+          <h1 class="brand__title">Документы</h1>
+        </div>
+
+        <div class="status-grid" aria-label="Сводка">
+          <div class="metric">
+            <strong id="metricDone">0</strong>
+            <span>есть</span>
+          </div>
+          <div class="metric">
+            <strong id="metricTodo">0</strong>
+            <span>нужно</span>
+          </div>
+          <div class="metric">
+            <strong id="metricReview">0</strong>
+            <span>проверить</span>
+          </div>
+          <div class="metric">
+            <strong id="metricProgress">0%</strong>
+            <span>собрано</span>
+          </div>
+        </div>
+
+        <nav class="nav" id="sectionNav" aria-label="Разделы"></nav>
+
+        <div class="rail-actions">
+          <button class="text-btn" id="exportBtn" type="button">Экспорт</button>
+          <button class="text-btn" id="resetBtn" type="button">Сброс статусов</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="toolbar">
+          <label class="sr-only" for="searchInput">Поиск</label>
+          <input class="search" id="searchInput" type="search" placeholder="Найти документ, папку или источник" />
+          <div class="segmented" id="statusFilter" aria-label="Фильтр статуса">
+            <button class="is-active" type="button" data-filter="all">Все</button>
+            <button type="button" data-filter="todo">Нужно</button>
+            <button type="button" data-filter="review">Проверить</button>
+            <button type="button" data-filter="done">Есть</button>
+          </div>
+        </header>
+
+        <section class="board" id="board" aria-live="polite"></section>
+      </main>
+
+      <aside class="side" id="detailSide">
+        <section class="panel" id="detailPanel"></section>
+
+        <section class="panel">
+          <h3>Быстрые папки</h3>
+          <div class="quick-list">
+            <a class="quick-link" href="../../../Загрузки Космос/">Загрузки Космос <span>↗</span></a>
+            <a class="quick-link" href="../../../Документы Космос/00_Входящие/">Входящие <span>↗</span></a>
+            <a class="quick-link" href="../../../Документы Космос/11_Владелец_ИП/">Владелец и ИП <span>↗</span></a>
+            <a class="quick-link" href="../../../Документы Космос/01_ФНС/">ФНС <span>↗</span></a>
+            <a class="quick-link" href="../../../Документы Космос/02_Банк/">Банк <span>↗</span></a>
+            <a class="quick-link" href="../../../Документы Космос/09_Оплата_счетов/">Оплата счетов <span>↗</span></a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+      const STORAGE_KEY = "kosmosVaultDashboard.v1";
+
+      const sections = [
+        { id: "all", icon: "□", label: "Все" },
+        { id: "owner", icon: "◉", label: "Владелец" },
+        { id: "business", icon: "◆", label: "ИП" },
+        { id: "taxes", icon: "◇", label: "ФНС" },
+        { id: "bank", icon: "●", label: "Банк" },
+        { id: "rent", icon: "⌂", label: "Аренда" },
+        { id: "cashdesk", icon: "▣", label: "ККТ / ОФД" },
+        { id: "crm", icon: "▤", label: "CRM" },
+        { id: "accounting", icon: "✎", label: "Бухгалтер" },
+      ];
+
+      const items = [
+        {
+          id: "owner-card",
+          section: "owner",
+          title: "Карточка владельца",
+          priority: "p0",
+          status: "todo",
+          source: "manual",
+          where: "Документы Космос/11_Владелец_ИП/06_Шаблоны_данных/карточка_владельца.md",
+          note: "Заполняется локально, без commit.",
+        },
+        {
+          id: "passport-registration",
+          section: "owner",
+          title: "Паспорт и регистрация",
+          priority: "p0",
+          status: "todo",
+          source: "manual",
+          where: "Документы Космос/11_Владелец_ИП/01_Паспорт",
+          note: "Сканы и фото только локально.",
+        },
+        {
+          id: "business-card",
+          section: "business",
+          title: "Карточка ИП",
+          priority: "p0",
+          status: "todo",
+          source: "manual",
+          where: "Документы Космос/11_Владелец_ИП/06_Шаблоны_данных/карточка_ип.md",
+          note: "Базовые реквизиты для документов и платежей.",
+        },
+        {
+          id: "egrip",
+          section: "business",
+          title: "Выписка ЕГРИП",
+          priority: "p0",
+          status: "todo",
+          source: "fns",
+          where: "Документы Космос/11_Владелец_ИП/02_ИП_регистрация",
+          note: "Скачать в ЛК ФНС, подпись хранить рядом.",
+        },
+        {
+          id: "inn-ogrnip",
+          section: "business",
+          title: "ИНН / ОГРНИП",
+          priority: "p0",
+          status: "todo",
+          source: "fns",
+          where: "Документы Космос/11_Владелец_ИП/02_ИП_регистрация",
+          note: "Оригинал источника важнее ручной записи.",
+        },
+        {
+          id: "psn-patent",
+          section: "taxes",
+          title: "Патент ПСН",
+          priority: "p0",
+          status: "todo",
+          source: "fns",
+          where: "Документы Космос/11_Владелец_ИП/03_Налоговые_режимы",
+          note: "Нужен период, номер и график оплаты.",
+        },
+        {
+          id: "usn",
+          section: "taxes",
+          title: "Документы УСН",
+          priority: "p1",
+          status: "todo",
+          source: "fns",
+          where: "Документы Космос/11_Владелец_ИП/03_Налоговые_режимы",
+          note: "Сверить с бухгалтером.",
+        },
+        {
+          id: "ens",
+          section: "taxes",
+          title: "ЕНС: баланс и операции",
+          priority: "p1",
+          status: "todo",
+          source: "fns",
+          where: "Документы Космос/11_Владелец_ИП/03_Налоговые_режимы",
+          note: "Обновлять периодически.",
+        },
+        {
+          id: "bank-requisites",
+          section: "bank",
+          title: "Карточка банковских реквизитов",
+          priority: "p0",
+          status: "todo",
+          source: "bank",
+          where: "Документы Космос/11_Владелец_ИП/04_Банк_и_реквизиты",
+          note: "Основа для шаблонов оплат.",
+        },
+        {
+          id: "rent-agreement",
+          section: "rent",
+          title: "Договор аренды",
+          priority: "p0",
+          status: "todo",
+          source: "manual",
+          where: "Документы Космос/05_Аренда",
+          note: "Нужен для регулярного платежа аренды.",
+        },
+        {
+          id: "kkt-ofd",
+          section: "cashdesk",
+          title: "ККТ / ОФД",
+          priority: "p1",
+          status: "todo",
+          source: "manual",
+          where: "Документы Космос/06_ККТ_ОФД",
+          note: "Для напоминаний и сверки.",
+        },
+        {
+          id: "livesklad-access",
+          section: "crm",
+          title: "LiveSklad: описание доступа",
+          priority: "p1",
+          status: "todo",
+          source: "livesklad",
+          where: "Документы Космос/11_Владелец_ИП/05_Контакты_и_доступы_описание",
+          note: "Без паролей и API-токенов.",
+        },
+        {
+          id: "accountant-questions",
+          section: "accounting",
+          title: "Бухгалтер: контакты и вопросы",
+          priority: "p0",
+          status: "todo",
+          source: "manual",
+          where: "Документы Космос/03_Бухгалтерия/Вопросы",
+          note: "Налоговые решения остаются у бухгалтера.",
+        },
+      ];
+
+      const statusMeta = {
+        todo: { label: "Нужно", icon: "!" },
+        review: { label: "Проверить", icon: "?" },
+        done: { label: "Есть", icon: "✓" },
+      };
+
+      const sectionLabel = Object.fromEntries(sections.map((section) => [section.id, section.label]));
+
+      let activeSection = "all";
+      let activeStatus = "all";
+      let activeItemId = items[0].id;
+      let query = "";
+      let state = loadState();
+
+      const board = document.querySelector("#board");
+      const sectionNav = document.querySelector("#sectionNav");
+      const searchInput = document.querySelector("#searchInput");
+      const statusFilter = document.querySelector("#statusFilter");
+      const detailPanel = document.querySelector("#detailPanel");
+      const toast = document.querySelector("#toast");
+
+      function loadState() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+          return typeof parsed === "object" && parsed ? parsed : {};
+        } catch {
+          return {};
+        }
+      }
+
+      function saveState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function itemStatus(item) {
+        return state[item.id]?.status || item.status;
+      }
+
+      function setItemStatus(itemId, status) {
+        state = {
+          ...state,
+          [itemId]: {
+            ...(state[itemId] || {}),
+            status,
+            updatedAt: new Date().toISOString(),
+          },
+        };
+        activeItemId = itemId;
+        saveState();
+        render();
+      }
+
+      function filteredItems() {
+        const normalized = query.trim().toLowerCase();
+        return items.filter((item) => {
+          const matchesSection = activeSection === "all" || item.section === activeSection;
+          const matchesStatus = activeStatus === "all" || itemStatus(item) === activeStatus;
+          const haystack = [item.title, item.where, item.source, item.note, sectionLabel[item.section]]
+            .join(" ")
+            .toLowerCase();
+          const matchesQuery = !normalized || haystack.includes(normalized);
+          return matchesSection && matchesStatus && matchesQuery;
+        });
+      }
+
+      function counts() {
+        return items.reduce(
+          (acc, item) => {
+            const status = itemStatus(item);
+            acc[status] += 1;
+            acc.total += 1;
+            return acc;
+          },
+          { todo: 0, review: 0, done: 0, total: 0 },
+        );
+      }
+
+      function sectionCount(sectionId) {
+        if (sectionId === "all") return items.length;
+        return items.filter((item) => item.section === sectionId).length;
+      }
+
+      function renderMetrics() {
+        const current = counts();
+        const progress = current.total ? Math.round((current.done / current.total) * 100) : 0;
+        document.querySelector("#metricDone").textContent = current.done;
+        document.querySelector("#metricTodo").textContent = current.todo;
+        document.querySelector("#metricReview").textContent = current.review;
+        document.querySelector("#metricProgress").textContent = `${progress}%`;
+      }
+
+      function renderSections() {
+        sectionNav.innerHTML = sections
+          .map(
+            (section) => `
+              <button class="${section.id === activeSection ? "is-active" : ""}" type="button" data-section="${section.id}">
+                <span aria-hidden="true">${section.icon}</span>
+                <span>${section.label}</span>
+                <span class="count">${sectionCount(section.id)}</span>
+              </button>
+            `,
+          )
+          .join("");
+      }
+
+      function renderBoard() {
+        const visible = filteredItems();
+        if (!visible.length) {
+          board.innerHTML = '<div class="empty">Ничего не найдено</div>';
+          return;
+        }
+
+        board.innerHTML = visible
+          .map((item) => {
+            const status = itemStatus(item);
+            return `
+              <article class="item ${item.id === activeItemId ? "is-selected" : ""}" data-item="${item.id}">
+                <div class="item__main">
+                  <div class="item__top">
+                    <h2>${item.title}</h2>
+                    <div class="chips">
+                      <span class="chip chip--${item.priority}">${item.priority.toUpperCase()}</span>
+                      <span class="chip">${sectionLabel[item.section]}</span>
+                      <span class="chip">${item.source}</span>
+                    </div>
+                  </div>
+                  <div class="path">
+                    <span aria-hidden="true">→</span>
+                    <code>${item.where}</code>
+                  </div>
+                </div>
+                <div class="item__actions" aria-label="Статус">
+                  ${Object.entries(statusMeta)
+                    .map(
+                      ([key, meta]) => `
+                        <button
+                          class="status-btn ${status === key ? "is-active" : ""}"
+                          type="button"
+                          data-item-status="${item.id}"
+                          data-status="${key}"
+                          title="${meta.label}"
+                          aria-label="${meta.label}: ${item.title}"
+                        >${meta.icon}</button>
+                      `,
+                    )
+                    .join("")}
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      function renderDetail() {
+        const item = items.find((candidate) => candidate.id === activeItemId) || filteredItems()[0] || items[0];
+        if (!item) return;
+        const status = itemStatus(item);
+        detailPanel.innerHTML = `
+          <h2>${item.title}</h2>
+          <div class="chips">
+            <span class="chip chip--${item.priority}">${item.priority.toUpperCase()}</span>
+            <span class="chip">${statusMeta[status].label}</span>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-row">
+              <span>Раздел</span>
+              <strong>${sectionLabel[item.section]}</strong>
+            </div>
+            <div class="detail-row">
+              <span>Источник</span>
+              <strong>${item.source}</strong>
+            </div>
+            <div class="detail-row">
+              <span>Куда складывать</span>
+              <code>${item.where}</code>
+            </div>
+            <div class="detail-row">
+              <span>Заметка</span>
+              <strong>${item.note}</strong>
+            </div>
+          </div>
+          <button class="text-btn" type="button" id="copyPathBtn">Скопировать путь</button>
+        `;
+      }
+
+      function renderFilters() {
+        statusFilter.querySelectorAll("button").forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.filter === activeStatus);
+        });
+      }
+
+      function render() {
+        renderMetrics();
+        renderSections();
+        renderFilters();
+        renderBoard();
+        renderDetail();
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("is-visible"), 1800);
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("Путь скопирован");
+        } catch {
+          window.prompt("Путь", text);
+        }
+      }
+
+      sectionNav.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-section]");
+        if (!button) return;
+        activeSection = button.dataset.section;
+        render();
+      });
+
+      statusFilter.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-filter]");
+        if (!button) return;
+        activeStatus = button.dataset.filter;
+        render();
+      });
+
+      searchInput.addEventListener("input", (event) => {
+        query = event.target.value;
+        renderBoard();
+      });
+
+      board.addEventListener("click", (event) => {
+        const statusButton = event.target.closest("[data-item-status]");
+        if (statusButton) {
+          setItemStatus(statusButton.dataset.itemStatus, statusButton.dataset.status);
+          return;
+        }
+
+        const item = event.target.closest("[data-item]");
+        if (!item) return;
+        activeItemId = item.dataset.item;
+        render();
+      });
+
+      detailPanel.addEventListener("click", (event) => {
+        if (event.target.id !== "copyPathBtn") return;
+        const item = items.find((candidate) => candidate.id === activeItemId);
+        if (item) copyText(item.where);
+      });
+
+      document.querySelector("#resetBtn").addEventListener("click", () => {
+        if (!window.confirm("Сбросить локальные статусы?")) return;
+        state = {};
+        saveState();
+        render();
+      });
+
+      document.querySelector("#exportBtn").addEventListener("click", () => {
+        const payload = {
+          exportedAt: new Date().toISOString(),
+          items: items.map((item) => ({
+            ...item,
+            status: itemStatus(item),
+            updatedAt: state[item.id]?.updatedAt || null,
+          })),
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `kosmos-vault-dashboard-${new Date().toISOString().slice(0, 10)}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

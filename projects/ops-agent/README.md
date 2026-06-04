@@ -48,8 +48,10 @@
 ## Текущие helper-скрипты
 
 - `scripts/kosmos-auto.sh` — безопасный командный центр: preflight, статус входящих, запуск приёмщика, smoke-проверка скриптов, git-review перед commit.
-- `scripts/watch-downloads.sh` — временный приёмщик файлов: копирует новые завершённые загрузки из `~/Downloads` в `_inbox/fns/`, не удаляя оригиналы.
-- `scripts/watch-documents.sh` — новый приёмщик документов: копирует новые завершённые загрузки из `~/Downloads` сразу в человеческую папку `Документы Космос/00_Входящие/...` и в техническую папку `_inbox/...`.
+- `scripts/init-vault.sh` — подготовка локального сейфа: создаёт приватные папки и копирует недостающие шаблоны в `data/live/`, не перезаписывая заполненные файлы.
+- `scripts/watch-downloads.sh` — старый совместимый приёмщик ФНС: по умолчанию смотрит `Загрузки Космос/ФНС`, не системную `~/Downloads`.
+- `scripts/watch-documents.sh` — приёмщик документов: копирует новые файлы из локальной папки `Загрузки Космос/<источник>/` сразу в человеческую папку `Документы Космос/00_Входящие/...` и в техническую папку `_inbox/...`.
+- `dashboard/index.html` — локальная минималистичная доска-планер по документам, статусам и папкам.
 
 Главная команда:
 
@@ -60,6 +62,8 @@ projects/ops-agent/scripts/kosmos-auto.sh all
 Основные режимы:
 
 ```sh
+projects/ops-agent/scripts/kosmos-auto.sh init
+projects/ops-agent/scripts/kosmos-auto.sh dashboard
 projects/ops-agent/scripts/kosmos-auto.sh preflight
 projects/ops-agent/scripts/kosmos-auto.sh inbox
 projects/ops-agent/scripts/kosmos-auto.sh watch fns
@@ -68,7 +72,7 @@ projects/ops-agent/scripts/kosmos-auto.sh review
 projects/ops-agent/scripts/kosmos-auto.sh smoke
 ```
 
-Старый запуск:
+Старый совместимый запуск:
 
 ```sh
 projects/ops-agent/scripts/watch-downloads.sh
@@ -77,12 +81,13 @@ projects/ops-agent/scripts/watch-downloads.sh
 Можно передать свои папки:
 
 ```sh
-projects/ops-agent/scripts/watch-downloads.sh ~/Downloads ../../_inbox/fns
+projects/ops-agent/scripts/watch-downloads.sh "Загрузки Космос/ФНС" ../../_inbox/fns
 ```
 
 Новый рекомендуемый запуск:
 
 ```sh
+projects/ops-agent/scripts/kosmos-auto.sh init
 projects/ops-agent/scripts/watch-documents.sh fns
 projects/ops-agent/scripts/watch-documents.sh bank
 projects/ops-agent/scripts/watch-documents.sh suppliers
@@ -91,6 +96,7 @@ projects/ops-agent/scripts/watch-documents.sh manual
 ```
 
 Первый аргумент выбирает источник. По умолчанию используется `manual`.
+Если нужно разово смотреть другую папку, можно передать её вторым аргументом. По умолчанию системная `~/Downloads` больше не используется, чтобы агент не подтягивал лишние личные загрузки.
 
 ## Конфиги
 
