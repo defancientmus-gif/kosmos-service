@@ -5,7 +5,7 @@
 ## Что здесь есть
 
 - `migrations/20260605_000001_kosmos_cloud_core.sql` — базовая схема CRM/документов/финансов/действий агента, RLS и policies через `auth.uid()`.
-- `migrations/20260605_000002_kosmos_realtime.sql` — optional Realtime для первых таблиц синхронизации.
+- `migrations/20260606_kosmos_realtime.sql` — optional Realtime для первых таблиц синхронизации.
 - `functions/agent/index.ts` — Edge Function для защищённых AI/GitHub-действий через Supabase Auth.
 
 ## Ручной порядок запуска

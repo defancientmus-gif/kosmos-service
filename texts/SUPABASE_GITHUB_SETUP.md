@@ -5,7 +5,7 @@
 ## Что уже подготовлено в репозитории
 
 - `supabase/migrations/20260605_000001_kosmos_cloud_core.sql` — таблицы, индексы, триггеры `updated_at`, RLS и policies через `auth.uid()`.
-- `supabase/migrations/20260605_000002_kosmos_realtime.sql` — optional Realtime для первых синхронизируемых таблиц.
+- `supabase/migrations/20260606_kosmos_realtime.sql` — optional Realtime для первых синхронизируемых таблиц.
 - `supabase/functions/agent/index.ts` — Edge Function с проверкой Supabase Auth, CORS, AI-запросом и GitHub-записью только в разрешённые пути.
 - `.env.example` — только placeholders, без реальных секретов.
 - `deploy.sh` — безопасный deploy helper: не делает `git add -A`, требует явный список файлов.

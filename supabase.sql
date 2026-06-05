@@ -4,7 +4,7 @@
 -- Apply them in order in a separate Supabase project for this repository:
 --
 -- 1. supabase/migrations/20260605_000001_kosmos_cloud_core.sql
--- 2. supabase/migrations/20260605_000002_kosmos_realtime.sql
+-- 2. supabase/migrations/20260606_kosmos_realtime.sql
 --
 -- This file exists as the project entrypoint, so the schema location is visible
 -- next to the repository root and can be pasted into Supabase SQL Editor by
