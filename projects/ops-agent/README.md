@@ -52,6 +52,8 @@
 - `scripts/watch-downloads.sh` — старый совместимый приёмщик ФНС: по умолчанию смотрит `Загрузки Космос/ФНС`, не системную `~/Downloads`.
 - `scripts/watch-documents.sh` — приёмщик документов: копирует новые файлы из локальной папки `Загрузки Космос/<источник>/` сразу в человеческую папку `Документы Космос/00_Входящие/...` и в техническую папку `_inbox/...`.
 - `dashboard/index.html` — локальная минималистичная доска-планер по документам, статусам и папкам.
+- `scripts/backup-live.sh` — локальный snapshot `data/live` в `_archive/backups/`.
+- `scripts/restore-live.sh` — восстановление `data/live` из backup с защитным snapshot перед заменой.
 
 Главная команда:
 
@@ -70,6 +72,7 @@ projects/ops-agent/scripts/kosmos-auto.sh watch fns
 projects/ops-agent/scripts/kosmos-auto.sh watch bank
 projects/ops-agent/scripts/kosmos-auto.sh review
 projects/ops-agent/scripts/kosmos-auto.sh smoke
+projects/ops-agent/scripts/backup-live.sh manual
 ```
 
 Старый совместимый запуск:
